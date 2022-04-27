@@ -3,7 +3,7 @@ import express from "express";
 import { authMiddleware } from "./middleware/authorization.mjs";
 import { requestLog } from "./middleware/requestsLog.mjs";
 
-import { postUserController, getUserController, deleteUserController } from "./controllers/usersControllers.mjs";
+import { postUserController, getUserController, deleteUserController, putUserController } from "./controllers/usersControllers.mjs";
 import { deleteTaskController, getTaskController, postTaskController, putTaskController } from "./controllers/tasksControllers.mjs";
 
 const PATH_PREFIX = "/api/v0.0"
@@ -15,6 +15,7 @@ try {
     app.post(PATH_PREFIX+"/users/", jsonParser, postUserController);
     app.get(PATH_PREFIX+"/users/", jsonParser, getUserController);
     app.delete(PATH_PREFIX+"/users/", jsonParser, deleteUserController);
+    app.put(PATH_PREFIX+"/users/", jsonParser, putUserController);
 
     app.get(PATH_PREFIX+"/tasks/", authMiddleware, getTaskController);
     app.post(PATH_PREFIX+"/task/", authMiddleware, jsonParser, postTaskController);
