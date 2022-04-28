@@ -12,7 +12,7 @@ export function getUserController (request, response) {
 export function deleteUserController (request, response) {
     const updateUser = request.body;
     const oldUserIdx = users.findIndex(
-        item => item.name === updateUser.name
+        item => item.id === updateUser.id
     )
     users.splice(oldUserIdx,2);
     response.sendStatus(200)
@@ -21,7 +21,7 @@ export function deleteUserController (request, response) {
 export function putUserController (request, response) {
     const updatedUser = request.body;
     const oldUserIdx = users.findIndex(
-        item => item.name === updatedUser.name
+        item => item.id === updatedUser.id
     )
     users[oldUserIdx] = updatedUser;
     response.sendStatus(200);
