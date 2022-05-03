@@ -1,7 +1,6 @@
 import express from "express";
 
 import { authMiddleware } from "./middleware/authorization.mjs";
-import { requestLog } from "./middleware/requestsLog.mjs";
 import { validateUserJSON, validateNewTaskJSON, validateTaskJSON, validateDeleteTaskJSON } from "./middleware/jsonValidator.mjs";
 
 import { postUserController, getUsersController, deleteUserController, putUserController } from "./controllers/usersControllers.mjs";
@@ -11,8 +10,6 @@ const PATH_PREFIX = "/api/v0.0"
 const app = express();
 try {
     const jsonParser = express.json();
-
-    app.use(requestLog);
 
     app.post(PATH_PREFIX + "/users/", jsonParser, validateUserJSON, postUserController);
     app.get(PATH_PREFIX + "/users/", jsonParser, getUsersController);

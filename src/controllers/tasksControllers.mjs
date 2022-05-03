@@ -31,19 +31,29 @@ export function getTasksController(request, response) {
 }
 
 export function putTaskController(request, response) {
-    const updatedTask = request.body;
-    const oldTaskIdx = tasks.findIndex(
-        item => item.id === updatedTask.id
+    db.run(
+        `UPDATE tasks SET description = "${request.body.description}" , done = ${request.body.done} WHERE id = "${request.body.id}"`,
+        (err) => {
+            if (err) {
+                console.error(err);
+                response.sendStatus(500)
+            } else {
+                response.sendStatus(200)
+            }
+        }
     )
-    tasks[oldTaskIdx] = updatedTask;
-    response.sendStatus(200);
 }
 
 export function deleteTaskController(request, response) {
-    const updatedTask = request.body;
-    const oldTaskIdx = tasks.findIndex(
-        item => item.id === updatedTask.id
+    db.run(
+        `DELETE FROM tasks WHERE id =`+request.body.id,
+        (err) => {
+            if (err) {
+                console.error(err);
+                response.sendStatus(500)
+            } else {
+                response.sendStatus(200)
+            }
+        }
     )
-    tasks.splice(oldTaskIdx, 1);
-    response.sendStatus(200)
 }

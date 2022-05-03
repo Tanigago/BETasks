@@ -31,18 +31,23 @@ export function getUsersController(request, response) {
 }
 
 export function putUserController(request, response) {
-    const updatedUser = request.body;
-    const oldUserIdx = users.findIndex(
-        item => item.id === updatedUser.id
+    db.run(
+        `UPDATE users SET name = "${request.body.name}" WHERE id = "${request.body.id}"`,
+        (err) => {
+            if (err) {
+                console.error(err);
+                response.sendStatus(500)
+            } else {
+                response.sendStatus(200)
+            }
+        }
     )
-    users[oldUserIdx] = updatedUser;
-    response.sendStatus(200);
 }
 
 export function deleteUserController(request, response) {
     db.run(
         `DELETE FROM users WHERE id =`+request.body.id,
-        (err, data) => {
+        (err) => {
             if (err) {
                 console.error(err);
                 response.sendStatus(500)

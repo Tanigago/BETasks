@@ -59,7 +59,7 @@ export function insertTask(taskObject, callback) {
     const { id, description, done } = taskObject;
     const sql = `
         INSERT INTO tasks (id, description, done)
-        values (${id}, ${description}, "${done}");
+        values (${id}, "${description}", ${done});
     `;
     db.run(sql, callback);
 }
